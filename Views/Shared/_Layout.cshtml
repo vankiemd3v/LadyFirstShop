@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>LadyFShop</title>
+	<link href="/public/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/public/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/public/css/prettyPhoto.css" rel="stylesheet">
+	<link href="/public/css/price-range.css" rel="stylesheet">
+	<link href="/public/css/animate.css" rel="stylesheet">
+	<link href="/public/css/main.css" rel="stylesheet">
+	<link href="/public/css/responsive.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<link rel="shortcut icon" href="/public/images/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/images/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/public/images/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/public/images/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="/public/images/ico/apple-touch-icon-57-precomposed.png">
+	<style>
+		.dauBaCham {
+			text-align: left;
+			margin-left: 0.5em;
+			margin-right: 0.5em;
+			display: block;
+			display: -webkit-box;
+			height: 16px*1.3*3;
+			font-size: 16px;
+			line-height: 1.3;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.processBar:before {
+			content: ' ';
+			background: url(https://theme.hstatic.net/200000135107/1000880262/14/hot.png) top left no-repeat;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 20px;
+			height: 25px;
+			z-index: 1;
+			background-size: contain;
+		}
+
+		.processBar {
+			height: 21px;
+			width: 100%;
+			background: url(https://theme.hstatic.net/200000135107/1000880262/14/deal_line.png) top left no-repeat;
+			background-size: 100% 100%;
+			position: relative;
+			border-radius: 30px;
+			overflow: hidden;
+			margin: 10px 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 11px;
+			color: white;
+		}
+	</style>
+</head><!--/head-->
+
+<body>
+	<header id="header">
+		<!--header-->
+		<div class="header_top">
+			<!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"><i class="fa fa-phone"></i> +84 336.154.196</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> vankiemd3v@gmail.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="https://www.facebook.com/vankiemd3v/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+
+		<div class="header-middle">
+			<!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="/Home"><img src="/public/images/home/logo.png" alt="" /></a>
+						</div>
+
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="/Cart/CheckOrder"><i class="fa fa-crosshairs"></i> Kiểm tra đơn hàng</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng (<span id="numberCartItem"></span>)</a></li>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+
+		<div class="header-bottom">
+			<!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="/Home" class="active">Trang chủ</a></li>
+								<li><a href="/Product">Shop</a></li>
+								@*<li class="dropdown">
+									<a href="#">Shop<i class="fa fa-angle-down"></i></a>
+									<ul role="menu" class="sub-menu">
+										<li><a href="shop.html">Products</a></li>
+										<li><a href="product-details.html">Product Details</a></li>
+										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="cart.html">Cart</a></li>
+										<li><a href="login.html">Login</a></li>
+									</ul>
+								</li>*@
+								<li><a href="contact-us.html">Liên hệ</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Tìm kiếm..." />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+
+	@RenderBody()
+
+	<footer id="footer">
+		<!--Footer-->
+
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="companyinfo">
+							<h2><span>LadyF</span>-shop</h2>
+							<p>Shop bán son thui nha mọi người :v</p>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="single-widget">
+							<h2>Hotline</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a>Mua hàng: 0336.154.196</a></li>
+								<li><a>Hỗ trợ: 0336.154.196</a></li>
+								<li><a>Bảo hành: 0336.154.196</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="single-widget">
+							<h2>Hỗ trợ</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Mua hàng</a></li>
+								<li><a href="#">Đóng góp ý kiến</a></li>
+								<li><a href="#">Chế độ bảo hành</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							<img src="/public/images/home/map.png" alt="" />
+							<p>Vinh Hiền, Phú Lộc, Thừa Thiên Huế</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+
+	</footer><!--/Footer-->
+
+
+
+	<script src="/public/js/jquery.js"></script>
+	<script src="/public/js/bootstrap.min.js"></script>
+	<script src="/public/js/jquery.scrollUp.min.js"></script>
+	<script src="/public/js/price-range.js"></script>
+	<script src="/public/js/jquery.prettyPhoto.js"></script>
+	<script src="/public/js/main.js"></script>
+	<script src="/public/js/site.js"></script>
+	<script>
+		var site = new SiteController();
+		site.initialize();
+	</script>
+	@RenderSection("Scripts", required: false)
+	@RenderSection("cart", required: false)
+</body>
+</html>

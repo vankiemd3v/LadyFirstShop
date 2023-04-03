@@ -1,0 +1,168 @@
+﻿@using LadyFirstShop.Data.ViewModel;
+@model OrderViewModel
+@{
+    ViewData["Title"] = "CheckOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+	<script>
+		setTimeout(function () {
+			$('#NoticeSuccess').fadeOut('slow');
+		}, 3000);
+	</script>
+}
+<style>
+	.sortName {
+		text-align: left;
+		margin-right: 0.5em;
+		display: block;
+		display: -webkit-box;
+		font-size: 14px;
+		line-height: 1.3;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>
+<section id="cart_items">
+	<div class="container">
+		<div class="breadcrumbs">
+			<ol class="breadcrumb">
+				<li><a href="/Home">Trang chủ</a></li>
+				<li class="active">Kiểm tra đơn hàng</li>
+			</ol>
+		</div><!--/breadcrums-->
+		@if (ViewBag.SuccessMsg != null)
+		{
+			<div id="NoticeSuccess" class="alert alert-success" role="alert">
+				@ViewBag.SuccessMsg
+			</div>
+		}
+		@if(Model != null)
+		{
+			<div class="register-req">
+				Mã đơn hàng:
+				<input id="inputSearchOrder" type="text" value="@if(ViewBag.InputOrderId != null){@ViewBag.InputOrderId}" placeholder="Nhập mã đơn hàng" />
+				<button id="searchOrder">Tìm</button>
+			</div>
+
+			<!--/register-req-->
+
+			<div class="shopper-informations">
+				<div class="row">
+					<div class="col-sm-4">
+						<div style="font-size: 14px; background: #F0F0E9; color:#696763; height: 300px; padding: 10px; padding-left: 20px; margin-bottom: 50px;">
+							<table>
+								<tbody>
+									<tr>
+										<th colspan="2">Đơn hàng của bạn</th>
+									</tr>
+									<tr>
+										<th>Mã đơn hàng:</th>
+										<td>@Model.Id</td>
+									</tr>
+									<tr>
+										<th>Ngày đặt hàng:</th>
+										<td>@Model.OrderDate</td>
+									</tr>
+									<tr>
+										<th>Khách hàng:</th>
+										<td>@Model.ShipName</td>
+									</tr>
+									<tr>
+										<th>Số điện thoại:</th>
+										<td>@Model.ShipPhoneNumber</td>
+									</tr>
+									<tr>
+										<th>Email:</th>
+										<td>@Model.ShipEmail</td>
+									</tr>
+									<tr>
+										<th>Địa chỉ:</th>
+										<td>@Model.ShipAddress</td>
+									</tr>
+									<tr>
+										<th>Sản phẩm:</th>
+										<td>@Model.OrderDetailsViewModel.Count()</td>
+									</tr>
+									<tr>
+										<th>Tổng tiền:</th>
+										<td>@Model.TotalPayment.ToString("N0")<sup>đ</sup></td>
+									</tr>
+									<tr>
+										<th>Tình trạng:</th>
+										<td>@Model.Status</td>
+									</tr>
+									<tr>
+										<th>Ghi chú:</th>
+										<td>Giao giờ hành chính</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="table-responsive cart_info">
+							<table class="table table-condensed">
+								<thead>
+									<tr class="cart_menu" style="text-align: center;">
+										<td class="image" style="text-align: left; ">Ảnh</td>
+										<td class="description">Tên sản phẩm</td>
+										<td class="price">Giá</td>
+										<td class="quantity" style="text-align: center;">Số lượng</td>
+										<td class="total">Thành tiền</td>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model.OrderDetailsViewModel)
+									{
+										<tr>
+											<td class="cart_product" style="width: 100px; text-align: left;margin-left: 10px;">
+												<a href="/Product/Detail?id=@item.ProductColorId&colorId=@item.ProductColorId"><img style="width: 50%;" src="/product-image/@item.Image" alt=""></a>
+											</td>
+											<td class="cart_description" style="font-size: 13px;width: 300px; margin-left: 20px;">
+												<h5 class="sortName"><a href="/Product/Detail?id=@item.ProductId&colorId=@item.ProductColorId">@item.ProductName</a></h5>
+												<p>Màu sắc: @item.ColorName</p>
+											</td>
+											<td class="cart_price" style="text-align: center;">
+												<p style="font-size: 15px;">@item.Price.ToString("N0")<sup>đ</sup></p>
+											</td>
+											<td class="cart_quantity" style="text-align: center;">
+												<p>@item.Quantity</p>
+											</td>
+											<td class="cart_total" style="text-align: center;">
+												<p style="font-size: 15px;" class="cart_total_price">@((item.Price * item.Quantity).ToString("N0"))<sup>đ</sup></p>
+											</td>
+										</tr>
+									}
+									<tr>
+										<td colspan="3">&nbsp;</td>
+										<td colspan="3">
+											<table class="table table-condensed total-result">
+												<tr>
+													<td>Tổng tiền:</td>
+													<td><span>@Model.TotalPayment.ToString("N0")<sup>đ</sup></span></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+		else
+		{
+			<div class="register-req">
+				Mã đơn hàng:
+				<input id="inputSearchOrder" type="text" placeholder="Nhập mã đơn hàng" />
+				<button id="searchOrder">Tìm</button>
+				<div><span class="text-danger">Không tìm thấy đơn hàng!</span></div>
+			</div>
+			
+		}
+	</div>
+</section> <!--/#cart_items-->

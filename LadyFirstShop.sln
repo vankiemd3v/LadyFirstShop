@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadyFirstShop", "LadyFirstShop.csproj", "{8F997AF2-8DDF-47BE-98AE-1709E048B70A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadyFirstShop.Data", "..\LadyFirstShop.Data\LadyFirstShop.Data.csproj", "{464AF146-805F-4A79-A501-A30A72ACC0AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F997AF2-8DDF-47BE-98AE-1709E048B70A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F997AF2-8DDF-47BE-98AE-1709E048B70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F997AF2-8DDF-47BE-98AE-1709E048B70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F997AF2-8DDF-47BE-98AE-1709E048B70A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{464AF146-805F-4A79-A501-A30A72ACC0AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{464AF146-805F-4A79-A501-A30A72ACC0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{464AF146-805F-4A79-A501-A30A72ACC0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{464AF146-805F-4A79-A501-A30A72ACC0AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {895B72C0-47E3-4F1D-8FEE-76196EFCD094}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,141 @@
+﻿@model LadyFirstShop.Data.Request.Products.CreateProductRequest
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#txt_description'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+}
+
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">THÊM SẢN PHẨM</div>
+                        <div class="card-body">
+                            <form asp-action="Create" enctype="multipart/form-data" method="post" novalidate="novalidate">
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="cc-payment" class="control-label mb-1">Thương hiệu</label>
+                                        <select asp-for="BrandId" name="brandId" class="form-control">
+                                            @if (ViewBag.Brands != null)
+                                            {
+                                                @foreach (var item in ViewBag.Brands)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <input typeof="hidden" style="margin-top:10px;" /><br />
+                                        @Html.ValidationMessageFor(m => m.BrandId,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="cc-payment" class="control-label mb-1">Tên sản phẩm</label>
+                                        <input asp-for="Name" id="cc-pament" name="name" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <input typeof="hidden" style="margin-top:10px;" /><br />
+                                        @Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @*<div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="cc-payment" class="control-label mb-1">Số lượng</label>
+                                        <input value="0" asp-for="Quantity" id="cc-pament" name="quantity" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <input typeof="hidden" style="margin-top:10px;" /><br />
+                                        @Html.ValidationMessageFor(m => m.Quantity,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="cc-payment" class="control-label mb-1">Giá nhập</label>
+                                        <input value="0" asp-for="ImportPrice" id="cc-pament" name="importPrice" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <input typeof="hidden" style="margin-top:10px;" /><br />
+                                        @Html.ValidationMessageFor(m => m.ImportPrice,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="cc-payment" class="control-label mb-1">Giá bán</label>
+                                        <input value="0" asp-for="Price" id="cc-pament" name="price" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <input typeof="hidden" style="margin-top:10px;" /><br />
+                                        @Html.ValidationMessageFor(m => m.Price,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="cc-payment" class="control-label mb-1">Giá khuyến mãi</label>
+                                        <input value="0" asp-for="SalePrice" id="cc-pament" name="salePrice" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="cc-payment" class="control-label mb-1">Mô tả</label>
+                                        <textarea id="txt_description" asp-for="Description" name="description" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <input typeof="hidden" style="margin-top:10px;" /><br />
+                                        @Html.ValidationMessageFor(m => m.Description,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="file" id="file-input" asp-for="Image" name="image" class="form-control-file">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        @Html.ValidationMessageFor(m => m.Image,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-3">
+                                        <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block" style="margin-top:9px;">
+                                            <i class="fa fa-save"></i>
+                                            <span id="payment-button-amount">Lưu</span>
+                                        </button>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <a href="/Admin/Product" type="button" id="payment-button" class="btn btn-lg btn-secondary btn-block" style="margin-top:9px;">
+                                            <span id="payment-button-amount">Quay lại</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
