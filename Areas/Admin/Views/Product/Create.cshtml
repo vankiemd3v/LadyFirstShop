@@ -43,18 +43,14 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
                                         @Html.ValidationMessageFor(m => m.BrandId,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Tên sản phẩm</label>
+                                        @Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger", @style="float: right;"})
                                         <input asp-for="Name" id="cc-pament" name="name" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 @*<div class="row">
@@ -70,21 +66,15 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Giá nhập</label>
+                                        @Html.ValidationMessageFor(m => m.ImportPrice,"", new { @class = "text-danger", @style="float: right;"})
                                         <input value="0" asp-for="ImportPrice" id="cc-pament" name="importPrice" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.ImportPrice,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Giá bán</label>
+                                        @Html.ValidationMessageFor(m => m.Price,"", new { @class = "text-danger", @style="float: right;"})
                                         <input value="0" asp-for="Price" id="cc-pament" name="price" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Price,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="row">
@@ -96,19 +86,22 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Mô tả</label>
+                                        @Html.ValidationMessageFor(m => m.Description,"", new { @class = "text-danger", @style="float: right;"})
                                         <textarea id="txt_description" asp-for="Description" name="description" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Description,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-6">
-                                        <input type="file" id="file-input" asp-for="Image" name="image" class="form-control-file">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        @Html.ValidationMessageFor(m => m.Image,"", new { @class = "text-danger" })
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <input type="file" id="file-input" asp-for="Image" name="image" class="form-control-file">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                @Html.ValidationMessageFor(m => m.Image,"", new { @class = "text-danger", @style="float: right;"})
+                                            </div>
+                                            
+                                            
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">

@@ -29,7 +29,7 @@
 	<div class="container">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
-				<li><a href="/Home">Trang chủ</a></li>
+				<li><a href="/trang-chu">Trang chủ</a></li>
 				<li class="active">Kiểm tra đơn hàng</li>
 			</ol>
 		</div><!--/breadcrums-->
@@ -42,9 +42,9 @@
 		@if(Model != null)
 		{
 			<div class="register-req">
-				Mã đơn hàng:
-				<input id="inputSearchOrder" type="text" value="@if(ViewBag.InputOrderId != null){@ViewBag.InputOrderId}" placeholder="Nhập mã đơn hàng" />
+				<input style="width: 200px;" id="inputSearchOrder" type="text" value="@if(ViewBag.InputOrderId != null){@ViewBag.InputOrderId}" placeholder="Nhập mã đơn hàng" />
 				<button id="searchOrder">Tìm</button>
+				<button><a href="/san-pham" style="color: black;">Quay lại</a></button>
 			</div>
 
 			<!--/register-req-->
@@ -52,7 +52,7 @@
 			<div class="shopper-informations">
 				<div class="row">
 					<div class="col-sm-4">
-						<div style="font-size: 14px; background: #F0F0E9; color:#696763; height: 300px; padding: 10px; padding-left: 20px; margin-bottom: 50px;">
+						<div style="font-size: 14px; background: #F0F0E9; color:#696763; min-height: 280px; padding: 10px; padding-left: 20px; margin-bottom: 50px;">
 							<table>
 								<tbody>
 									<tr>
@@ -94,10 +94,13 @@
 										<th>Tình trạng:</th>
 										<td>@Model.Status</td>
 									</tr>
-									<tr>
-										<th>Ghi chú:</th>
-										<td>Giao giờ hành chính</td>
-									</tr>
+									@if(Model.ShipNote != null)
+									{
+										<tr>
+											<th>Ghi chú:</th>
+											<td>@Model.ShipNote</td>
+										</tr>
+									}
 								</tbody>
 							</table>
 						</div>
@@ -119,10 +122,10 @@
 									{
 										<tr>
 											<td class="cart_product" style="width: 100px; text-align: left;margin-left: 10px;">
-												<a href="/Product/Detail?id=@item.ProductColorId&colorId=@item.ProductColorId"><img style="width: 50%;" src="/product-image/@item.Image" alt=""></a>
+												<a href="/chi-tiet-san-pham?id=@item.ProductColorId&colorId=@item.ProductColorId"><img style="width: 50%;" src="/product-image/@item.Image" alt=""></a>
 											</td>
 											<td class="cart_description" style="font-size: 13px;width: 300px; margin-left: 20px;">
-												<h5 class="sortName"><a href="/Product/Detail?id=@item.ProductId&colorId=@item.ProductColorId">@item.ProductName</a></h5>
+												<h5 class="sortName"><a href="/chi-tiet-san-pham?id=@item.ProductId&colorId=@item.ProductColorId">@item.ProductName</a></h5>
 												<p>Màu sắc: @item.ColorName</p>
 											</td>
 											<td class="cart_price" style="text-align: center;">
@@ -157,10 +160,10 @@
 		else
 		{
 			<div class="register-req">
-				Mã đơn hàng:
-				<input id="inputSearchOrder" type="text" placeholder="Nhập mã đơn hàng" />
+				<input style="width: 200px;" id="inputSearchOrder" type="text" placeholder="Nhập mã đơn hàng" />
 				<button id="searchOrder">Tìm</button>
-				<div><span class="text-danger">Không tìm thấy đơn hàng!</span></div>
+				<button><a href ="/san-pham" style="color: black;">Quay lại</a></button>
+				<div><span class="text-danger">@ViewBag.NotFoundOrder</span></div>
 			</div>
 			
 		}

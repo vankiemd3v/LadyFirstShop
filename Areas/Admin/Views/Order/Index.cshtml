@@ -1,0 +1,138 @@
+﻿@using LadyFirstShop.Data.Response;
+@model PagedResult<LadyFirstShop.Data.ViewModel.OrderViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int count = 0;
+}
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 3000);
+    </script>
+}
+<style>
+    .pagination {
+        display: inline-block;
+        margin-bottom: 25px;
+        margin-top: 0;
+        padding-left: 15px;
+    }
+
+        .pagination > li {
+            display: inline;
+            padding: 0px 5px;
+            background: silver;
+        }
+
+            .pagination > li > a {
+                color: black;
+            }
+
+        .pagination li:first-child a, .pagination li:first-child span {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            margin-left: 0;
+        }
+
+    .baCham {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 380px;
+        display: block;
+    }
+</style>
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row m-t-30">
+                <div class="col-md-12">
+                    
+                    <!-- DATA TABLE-->
+                    <div class="table-responsive m-b-40">
+                        <table class="table table-borderless table-data3">
+                            <thead>
+                                <tr>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ghi chú</th>
+                                    <th>Tình trạng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var item in Model.Items)
+                                {
+                                    <tr>
+                                        <td>@item.OrderDate</td>
+                                        <td>@item.ShipName</td>
+                                        <td>@item.ShipPhoneNumber</td>
+                                        <td>@item.ShipNote</td>
+                                        @if(item.Status == "Chờ duyệt" || item.Status == "Bị Hủy")
+                                        {
+                                            <td class="denied">@item.Status</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="process">@item.Status</td>
+                                        }
+                                        <td>@item.TotalPayment.ToString("N0")<sup>đ</sup></td>
+                                        <td>
+                                            <div class="table-data-feature">
+                                                @*<button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cập nhật">
+                                                    <a href="/Admin/Order/GetById?id=@item.Id"><i class="zmdi zmdi-edit"></i></a>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Xóa">
+                                                    <a href="/Admin/Product/DeleteProduct?id=@item.Id"><i class="zmdi zmdi-delete"></i></a>
+                                                </button>*@
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Chi tiết">
+                                                    <a href="/Admin/Order/Update?id=@item.Id"><i class="zmdi zmdi-more"></i></a>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END DATA TABLE-->
+                    <ul class="pagination">
+                        @for (int i = 1; i <= Model.PageCount; i++)
+                        {
+                            if (Model.PageIndex == i)
+                            {
+
+                                <li class="active" style="background: #ffbc00;">@i</li>
+                            }
+                            else
+                            {
+                                <li><a href="/Admin/Order/Index?pageIndex=@i">@i</a></li>
+                            }
+                        }
+                        @{
+                            int nextPage = 0;
+                            if (Model.PageIndex + 1 <= Model.PageCount)
+                            {
+                                nextPage = Model.PageIndex + 1;
+                            }
+                            else
+                            {
+                                nextPage = Model.PageIndex;
+                            }
+                        }
+                        @if(Model.PageIndex < Model.PageCount)
+                        {
+                            <li><a href="/Admin/Order/Index?pageIndex=@nextPage">&raquo;</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+

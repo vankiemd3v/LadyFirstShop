@@ -1,0 +1,120 @@
+﻿@using LadyFirstShop.Data.Request;
+@model ContactRequest
+@{
+	ViewData["Title"] = "Liên hệ";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	
+}
+@section Scripts{
+	<script>
+		function initMap() {
+			const uluru = { lat: 16.3468518, lng: 107.9008365 };
+			const map = new google.maps.Map(document.getElementById("map"), {
+				zoom: 15,
+				center: uluru,
+			});
+			const infowindow = new google.maps.InfoWindow({
+				content: "LadyFShop",
+				ariaLabel: "LadyFShop",
+			});
+			const marker = new google.maps.Marker({
+				position: uluru,
+				map,
+				title: "LadyFShop",
+			});
+
+			marker.addListener("click", () => {
+				infowindow.open({
+					anchor: marker,
+					map,
+				});
+			});
+		}
+
+		window.initMap = initMap;
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?AIzaSyB-0sp1kSbcsuNdC13J3NRBSnd5SDH6vkQ&callback=initMap&v=weekly"></script>
+	<script>
+		setTimeout(function () {
+			$('#msgAlert').fadeOut('slow');
+		}, 3000);
+	</script>
+}
+
+<div id="contact-page" class="container">
+	<div class="bg">
+		@if(ViewBag.Success != null)
+		{
+			<div id="msgAlert" class="alert alert-success" role="alert">
+				@ViewBag.Success
+			</div>
+		}
+		<div class="row">
+			<div class="col-sm-12">
+				<h2 class="title text-center">Thông tin Liên hệ</h2>
+				<div id="map" class="contact-map">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="contact-form">
+					<h2 class="title text-center">Gửi phản hồi</h2>
+					<div class="status alert alert-success" style="display: none"></div>
+					<form asp-action="Index" asp-controller="Contact" class="contact-form row" method="post">
+						<div class="form-group col-md-6">
+							<input type="text" name="name" class="form-control" placeholder="Họ và tên" value="@if(ViewBag.Name != null){@ViewBag.Name}">
+							@Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger" })
+						</div>
+						<div class="form-group col-md-6">
+							<input type="text" name="email" class="form-control"  placeholder="Email" value="@if(ViewBag.Email != null){@ViewBag.Email}">
+							@Html.ValidationMessageFor(m => m.Email,"", new { @class = "text-danger" })
+						</div>
+						<div class="form-group col-md-12">
+							<input type="text" name="subject" class="form-control"  placeholder="Tiêu đề" value="@if(ViewBag.Subject != null){@ViewBag.Subject}">
+							@Html.ValidationMessageFor(m => m.Subject,"", new { @class = "text-danger" })
+						</div>
+						<div class="form-group col-md-12">
+							<textarea name="Content" id="message" class="form-control" rows="8" placeholder="Nội dung">@if (ViewBag.Content != null)
+								{
+									@ViewBag.Content
+								}</textarea>
+							@Html.ValidationMessageFor(m => m.Content,"", new { @class = "text-danger" })
+						</div>
+						<div class="form-group col-md-12">
+							<input type="submit" name="submit" class="btn btn-primary pull-right" value="Gửi">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="contact-info">
+					<h2 class="title text-center">Thông tin cửa hàng</h2>
+					<address>
+						<p>LadyFShop</p>
+						<p>Địa chỉ: Vinh Hiền, Phú Lộc, Huế</p>
+						<p>Số điện thoại: 0336.154.196</p>
+						<p>Email: vankiemd3v@gmail.com</p>
+					</address>
+					<div class="social-networks">
+						<h2 class="title text-center">mạng xã hội</h2>
+						<ul>
+							<li>
+								<a href="https://fb.com/vankiemd3v" target="_blank"><i class="fa fa-facebook"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-twitter"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-google-plus"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-youtube"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--/#contact-page-->

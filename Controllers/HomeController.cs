@@ -7,7 +7,8 @@ using System.Diagnostics;
 
 namespace LadyFirstShop.Controllers
 {
-    public class HomeController : Controller
+	
+	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
@@ -18,18 +19,20 @@ namespace LadyFirstShop.Controllers
             _productService = productService;
             _brandService = brandService;
         }
-
-        public async Task<ActionResult> Index()
+		[Route("trang-chu")]
+		public async Task<ActionResult> Index()
         {
             // 12 sp
             // sp bán chạy nhất
             // sp mới nhất
             var products = await _productService.GetListProduct();
 			ViewBag.BestSellerProducts = await _productService.BestSellerProducts();
-            ViewBag.ListProductByBrand = await _productService.GetListProductByBrand();
+            var brands = await _productService.GetListBrand();
+            ViewBag.SaleProducts = await _productService.GetListSaleProduct();
 			var homeVm = new HomeViewModel()
             {
                 Products = products,
+                Brands = brands
             };
 			return View(homeVm);
         }

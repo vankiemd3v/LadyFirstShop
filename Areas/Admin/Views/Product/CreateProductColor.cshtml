@@ -29,13 +29,13 @@
                         <div class="card-body">
                             <input id="productId" value="@Model.Id" type="hidden" />
                             <div class="row">
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-lg-7">
                                     <label for="cc-payment" class="control-label mb-1">Tên sản phẩm</label>
                                     <input value="@Model.Name" type="text" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-lg-7">
                                     <div class="table-responsive table--no-card m-b-30">
                                         <table class="table table-borderless table-striped table-earning">
                                             <thead>
@@ -54,8 +54,9 @@
                                                             <img src="/product-image/@item.Image" />
                                                         </td>
                                                         <td>@item.Name</td>
-                                                        <td>@item.Quantity</td>
+                                                        <td><input id="input_@item.Id" type="number" value="@item.Quantity" style="width: 40px; background: silver; text-align: center;" /></td>
                                                         <td>
+                                                            <button class="btn btn-success btn-sm updateQuantityProColor" data-id="@item.Id" >Cập nhật số lượng</button>
                                                             <button name="colorId" data-id="@item.Id" id="deleteColor" class="btn btn-danger btn-sm deleteColor">Xóa</button>
                                                         </td>
                                                     </tr>
@@ -68,41 +69,39 @@
                             </div>
                             <form asp-action="Create" enctype="multipart/form-data" method="post" novalidate="novalidate">
                                 <div class="row">
-                                    <div class="form-group col-lg-6">
+                                    <div class="form-group col-lg-4">
                                         <label for="cc-payment" class="control-label mb-1">Màu son</label>
+                                        @Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger", @style="float: right;" })
                                         <input asp-for="Name" id="cc-pament" name="name" type="text" class="form-control" aria-required="true" aria-invalid="false">
                                     </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger" })
-                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-lg-6">
+                                    <div class="form-group col-lg-4">
                                         <label for="cc-payment" class="control-label mb-1">Số lượng</label>
-                                        <input asp-for="Quantity" name="quantity" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Quantity,"", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(m => m.Quantity,"", new { @class = "text-danger", @style="float: right;" })
+                                        <input asp-for="Quantity" name="quantity" type="number" value="0" class="form-control" aria-required="true" aria-invalid="false">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <input type="file" id="file-input" asp-for="Image" name="image" class="form-control-file">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        @Html.ValidationMessageFor(m => m.Image,"", new { @class = "text-danger" })
+                                    <div class="form-group col-lg-4">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <input type="file" id="file-input" asp-for="Image" name="image" class="form-control-file">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                @Html.ValidationMessageFor(m => m.Image,"", new { @class = "text-danger", @style="float: right;" })
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-lg-3">
+                                    <div class="form-group col-lg-2">
                                         <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block" style="margin-top:9px;">
                                             <i class="fa fa-save"></i>
                                             <span id="payment-button-amount">Lưu</span>
                                         </button>
                                     </div>
-                                    <div class="form-group col-lg-3">
+                                    <div class="form-group col-lg-2">
                                         <a href="/Admin/Product" type="button" id="payment-button" class="btn btn-lg btn-secondary btn-block" style="margin-top:9px;">
                                             <span id="payment-button-amount">Quay lại</span>
                                         </a>

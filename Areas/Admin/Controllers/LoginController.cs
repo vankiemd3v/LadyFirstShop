@@ -51,9 +51,26 @@ namespace LadyFirstShop.Areas.Admin.Controllers
 						CookieAuthenticationDefaults.AuthenticationScheme,
 						userPrincipal,
 						authProperties);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Order");
         }
-        [HttpGet]
+		[HttpGet]
+		public async Task<IActionResult> Register()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Register(RegisterRequest request)
+		{
+			if (!ModelState.IsValid)
+				return View(request);
+			var result = await _userService.Register(request);
+			if (result)
+				return RedirectToAction("Index");
+			return View();
+		}
+		
+
+		[HttpGet]
         public async Task<IActionResult> Logout()
         {
             // logout những cookie cũ

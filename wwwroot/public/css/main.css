@@ -761,26 +761,25 @@ h2.title:before{
 }
 
 .brands-name {
-  border: 1px solid #F7F7F0;
-  padding-bottom: 20px;
-  padding-top: 15px;
+	border: 1px solid #F7F7F0;
+	padding-bottom: 20px;
+	padding-top: 15px;
 }
 
 
-.brands-name .nav-stacked li a {
-  background-color: #FFFFFF;
-  color: #696763;
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  padding: 5px 25px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
+	.brands-name .nav-stacked li a {
+		color: #696763;
+		font-family: 'Roboto', sans-serif;
+		font-size: 14px;
+		padding: 5px 25px;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
 
-.brands-name .nav-stacked li a:hover{
-  background-color: #fff;
-  color: #696763;
-}
+	.brands-name .nav-stacked li a:hover {
+		background-color: #009727;
+		color: #fbfbfb;
+	}
 
 .shipping {
   background-color: #F2F2F2;
@@ -845,10 +844,12 @@ h2.title {
   position: relative;
 }
 
-.product-image-wrapper{
-	border:1px solid #F7F7F5;
+
+
+.product-image-wrapper {
+	border: 1px solid #F7F7F5;
 	overflow: hidden;
-	margin-bottom:30px;
+	margin-bottom: 30px;
 }
 
 .single-products {
@@ -860,7 +861,12 @@ h2.title {
   top: 0;
   right: 0;
 }
-
+.saleImg {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-right: 15px;
+}
 .productinfo h2{
 	color: #FE980F;
 	font-family: 'Roboto', sans-serif;
@@ -2520,4 +2526,172 @@ h2.title {
   color: #FE980F;
 }
 
+/*IPhone X*/
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
 
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+		margin-right: 0px;
+	}
+}
+
+/*IPhone 13, 13 Pro*/
+@media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*IPhone 13 ProMax*/
+@media only screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*iPhones 11*/
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*iPhone 11 Pro*/
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*iPhone 11 Pro Max*/
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*IPhone 14*/
+@media only screen and (width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*iPhone 14 Pro*/
+@media only screen and (width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*iPhone 14 Pro Max*/
+@media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) {
+	.product-image-wrapper {
+		width: 50%;
+		float: left;
+		position: relative;
+	}
+
+	.recommended-item-control {
+		margin-top: 26px;
+	}
+
+
+	.saleImg {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+/*pc*/

@@ -4,16 +4,22 @@ using LadyFirstShop.Data.Entities;
 using LadyFirstShop.Data.Infrastructure;
 using LadyFirstShop.Data.Repositories.ProductRepository;
 using LadyFirstShop.Data.Services.Brands;
+using LadyFirstShop.Data.Services.Contacts;
 using LadyFirstShop.Data.Services.Image;
 using LadyFirstShop.Data.Services.Orders;
 using LadyFirstShop.Data.Services.Products;
 using LadyFirstShop.Data.Services.User;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +49,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<LadyFirstShopDbContext>()
     .AddDefaultTokenProviders();
@@ -114,15 +121,16 @@ builder.Services.AddAuthentication(opt =>
 });
 builder.Services.AddHttpClient();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-				.AddCookie(options =>
-				{
-					// chưa login thì trả về login page
-					options.LoginPath = "/Login/Index/";
-					options.AccessDeniedPath = "/User/Forbidden/";
-				});
+                .AddCookie(options =>
+                {
+                    // chưa login thì trả về login page
+                    options.LoginPath = "/Login/Index/";
+                    options.AccessDeniedPath = "/User/Forbidden/";
+                });
+
 builder.Services.AddSession(options =>
 {
-	options.IdleTimeout = TimeSpan.FromMinutes(30);
+	options.IdleTimeout = TimeSpan.FromMinutes(500000);
 });
 var app = builder.Build();
 
@@ -151,6 +159,7 @@ app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseRouting();
+
 
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>

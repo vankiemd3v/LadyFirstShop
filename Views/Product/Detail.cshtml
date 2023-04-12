@@ -3,9 +3,12 @@
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	var relateProducts = ViewBag.RelateProducts;
+	var bestSellProducts = ViewBag.BestSellProducts;
 	int show4 = 0;
 	int show8 = 0;
+	int show12 = 0;
 	string slide = "";
+	int setColorId = 0;
 }
 @section Scripts{
 	<script>
@@ -53,6 +56,11 @@
 	</script>
 }
 <style>
+	.imgCon{
+		width: 100%;
+		aspect-ratio: 2/2;
+		object-fit: contain;
+	}
 	.buttons_added {
 		opacity: 1;
 		display: inline-block;
@@ -121,6 +129,7 @@
 			<div class="col-sm-12 padding-right">
 				<div class="product-details">
 					<!--product-details-->
+
 					<div class="col-sm-5">
 						@*<div class="view-product">
 							@if(Model.ImageDetail != "")
@@ -133,31 +142,31 @@
 							}
 
 						</div>*@
+
 						<div id="similar-product" class="carousel slide" data-ride="carousel">
 
 							<!-- Wrapper for slides -->
-							<div class="carousel-inner" style="margin-top: -40px;margin-left: -8px">
+							<div class="carousel-inner" style="margin-top: -40px;margin-left: -2px">
 								<div class="item active">
 									@if (Model.ImageDetail != "")
 									{
 
-										<a href="/Product/Detail?id=@Model.Id&colorId=@Model.ColorId"><img class="imgCon" src="/product-image/@Model.ImageDetail" alt=""></a>
-
+										<a href="/chi-tiet-san-pham?id=@Model.Id&colorId=@Model.ColorId"><img class="imgCon" src="/product-image/@Model.ImageDetail" alt=""></a>
 									}
 									else
 									{
-										<a href="/Product/Detail?id=@Model.Id"><img class="imgCon" src="/product-image/@Model.Image" alt=""></a>
+										<a href="/chi-tiet-san-pham?id=@Model.Id"><img class="imgCon" src="/product-image/@Model.Image" alt=""></a>
 									}
 
 								</div>
 								@foreach (var item in Model.ProductColors)
 								{
 									<div class="item">
-										<a href="/Product/Detail?id=@item.ProductId&colorId=@item.Id"><img class="imgCon" src="/product-image/@item.Image" alt=""></a>
+										<a href="/chi-tiet-san-pham?id=@item.ProductId&colorId=@item.Id"><img class="imgCon" src="/product-image/@item.Image" alt=""></a>
 									</div>
 								}
 								<div class="item">
-									<a href="/Product/Detail?id=@Model.Id&colorId=@Model.ColorId"><img class="imgCon" src="/product-image/@Model.Image" alt=""></a>
+									<a href="/chi-tiet-san-pham?id=@Model.Id&colorId=@Model.ColorId"><img class="imgCon" src="/product-image/@Model.Image" alt=""></a>
 								</div>
 								
 
@@ -174,9 +183,8 @@
 
 					</div>
 					<div class="col-sm-7">
-						<div class="product-information" style="background: #F0F0E9; height: 451px;">
+						<div class="product-information" style="background: #F0F0E9; padding: 20px; min-height: 451px;">
 							<!--/product-information-->
-							<img src="/public/images/product-details/new.jpg" class="newarrival" alt="" />
 							<h2>@Model.Name</h2>
 							<p>Thương hiệu: @Model.BrandName</p>
 							<span>
@@ -193,91 +201,73 @@
 							</span>
 							
 							<div style="margin-bottom: 10px;">
-								<label>Chọn màu:</label>
-								 @foreach (var item in Model.ProductColors)
-								{
-									@if (item.Quantity > 0)
+								<label>Màu sắc:</label>
+								<div>
+									@foreach (var item in Model.ProductColors)
 									{
 										@if (Model.ColorId == item.Id)
 										{
-											<a href="/Product/Detail?id=@item.ProductId&colorId=@item.Id" type="button" class="btn btn-danger">@item.Name</a>
+											<a style="font-size: 13px;  margin: 1px 0;" href="/chi-tiet-san-pham?id=@item.ProductId&colorId=@item.Id" type="button" class="btn btn-success">@item.Name</a>
 										}
 										else
 										{
-											<a href="/Product/Detail?id=@item.ProductId&colorId=@item.Id" type="button" class="btn btn-default">@item.Name</a>
+											<a style="font-size: 13px;  margin: 1px; 0;" href="/chi-tiet-san-pham?id=@item.ProductId&colorId=@item.Id" type="button" class="btn btn-default">@item.Name</a>
 										}
 									}
-								}
+								</div>
 							</div>
 							@foreach(var item in Model.ProductColors)
 							{@if (item.Id == Model.ColorId)
 								{
-									<div>
-										<p>Còn: @item.Quantity sản phẩm</p>
-									</div>
+									<table>
+										<tr>
+											<th width="90px"></th>
+											<td></td>
+										</tr>
+									</table>
 									<div class="buttons_added">
 										<label style="margin-top: 4px;">Số lượng:</label>
-										<input class="minus is-form" type="button" value="-">
+										<input class="minus is-form" type="button" value="-" >
 										<input id="inputQuantity" aria-label="quantity" class="input-qty" max="@item.Quantity" min="1" name="" type="number" value="1">
 										<input class="plus is-form" type="button" value="+">
+										<p style="margin-top: 5px; margin-left: 5px;">@item.Quantity sản phẩm có sẵn</p>
+									</div>
+									<div style="margin-top: 20px; ">
+										@if (item.Quantity > 0)
+										{
+											<button style="padding: 15px;margin-left: 0px; margin-top: 0px;" href="/gio-hang" id="addToCart" data-id="@Model.Id" data-infor="@Model.ColorId" type="button" class="btn btn-success">
+												<i class="fa fa-shopping-cart"></i>
+												Thêm vào giỏ
+											</button>
+											<a style="padding: 16px;" href="/trang-chu" type="button" class="btn btn-default">Tiếp tục mua sắm</a>
+										}
+										else
+										{
+											<button style="padding: 15px;margin-left: 0px; margin-top: 0px;" class="btn btn-danger">
+												Hết hàng!
+											</button>
+											<a style="padding: 16px;" href="/trang-chu" type="button" class="btn btn-default">Tiếp tục mua sắm</a>
+										}
 									</div>
 								}
 							}
 							
-							<div style="margin-top: 20px; margin-left: -20px;">
-								<a id="addToCart" href="/Cart" data-id="@Model.Id" data-infor="@Model.ColorId" type="button" class="btn btn-fefault cart">
-									<i class="fa fa-shopping-cart"></i>
-									Thêm vào giỏ
-								</a>
-								<a style="margin-top: -11px;" href="/Home" type="button" class="btn btn-default">Tiếp tục mua sắm</a>
-							</div>
+							
 						</div><!--/product-information-->
-						
+
 					</div>
 				</div><!--/product-details-->
 
 				<div class="category-tab shop-details-tab">
 					<!--category-tab-->
-					<div class="col-sm-12">
-						<ul class="nav nav-tabs">
-							<li><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>
-							<li class="active"><a href="#reviews" data-toggle="tab">Đánh giá</a></li>
+					<div class="col-sm-12" style="margin-bottom: -10px">
+						<ul class="nav nav-tabs" style="margin-bottom: 0px;">
+							@*<li><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>*@
+							<li class="active"><a href="#reviews" data-toggle="tab">Mô tả sản phẩm</a></li>
 						</ul>
-					</div>
-					<div class="tab-content">
-						<div class="tab-pane fade" id="details">
-							<textarea rows="4" cols="50">
-								@Model.Description
-								</textarea>
-							<div style="padding: 20px; text-align: justify;" class="col-sm-12">
-								
-							</div>
+						<div style="padding: 20px; background: #F0F0E9;height: 300px;overflow-x:hidden;overflow-y:auto; text-align: justify;">
+							@Html.Raw(Model.Description)
 						</div>
-
-						<div class="tab-pane fade active in" id="reviews">
-							<div class="col-sm-12">
-								<ul>
-									<li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-									<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-									<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-								</ul>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-								<p><b>Write Your Review</b></p>
-
-								<form action="#">
-									<span>
-										<input type="text" placeholder="Your Name" />
-										<input type="email" placeholder="Email Address" />
-									</span>
-									<textarea name=""></textarea>
-									<b>Rating: </b> <img src="/public/images/product-details/rating.png" alt="" />
-									<button type="button" class="btn btn-default pull-right">
-										Submit
-									</button>
-								</form>
-							</div>
-						</div>
-
 					</div>
 				</div><!--/category-tab-->
 
@@ -296,7 +286,15 @@
 									show4++;
 									if (show4 >= 1 && show4 <= 4)
 									{
-										<a href="/Product/Detail?id=@item.Id">
+										@foreach (var color in item.ProductColors)
+										{
+											if (color.Quantity > 0)
+											{
+												setColorId = color.Id;
+												break;
+											}
+										}
+										<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
 											<div class="col-sm-3">
 												<div class="product-image-wrapper">
 													<div class="single-products">
@@ -326,7 +324,7 @@
 													</div>
 													@if (item.SalePrice > 0)
 													{
-														<img style="margin-right: 15px;" src="/public/images/home/sale.png" class="new" alt="">
+														<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
 													}
 												</div>
 											</div>
@@ -334,57 +332,71 @@
 									}
 								}
 							</div>
-							<div class="item">
-								@foreach (var item in relateProducts)
-								{
-									show8++;
-									if (show8 >= 5 && show8 <= 8)
+							@if(relateProducts.Count > 4)
+							{
+								<div class="item">
+									@foreach (var item in relateProducts)
 									{
-										<a href="/Product/Detail?id=@item.Id">
-											<div class="col-sm-4">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="/product-image/@item.Image" alt="" />
-															@if (item.SalePrice == 0)
-															{
-																<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
-															}
-															else
-															{
-																<div class="row">
-																	<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
-																	<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
-																</div>
-															}
-															<p class="dauBaCham">
-																@item.Name
-															</p>@*
+										show8++;
+										if (show8 >= 5 && show8 <= 8)
+										{
+											@foreach (var color in item.ProductColors)
+											{
+												if (color.Quantity > 0)
+												{
+													setColorId = color.Id;
+													break;
+												}
+											}
+											<a href="/Product/Detail?id=@item.Id&colorId=@setColorId">
+												<div class="col-sm-3">
+													<div class="product-image-wrapper">
+														<div class="single-products">
+															<div class="productinfo text-center">
+																<img src="/product-image/@item.Image" alt="" />
+																@if (item.SalePrice == 0)
+																{
+																	<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+																}
+																else
+																{
+																	<div class="row">
+																		<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
+																		<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+																	</div>
+																}
+																<p class="dauBaCham">
+																	@item.Name
+																</p>@*
 													<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
-															<div class="processBar">
-																<div class="comp"></div>
-																<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																<div class="processBar">
+																	<div class="comp"></div>
+																	<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																</div>
 															</div>
-														</div>
 
+														</div>
+														@if (item.SalePrice > 0)
+														{
+															<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
+														}
 													</div>
-													@if (item.SalePrice > 0)
-													{
-														<img style="margin-right: 15px;" src="/public/images/home/sale.png" class="new" alt="">
-													}
 												</div>
-											</div>
-										</a>
+											</a>
+										}
 									}
-								}
-							</div>
+								</div>
+							}
 						</div>
-						<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+						@if(relateProducts.Count > 4)
+						{
+							<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 								<i class="fa fa-angle-left"></i>
 							</a>
 							<a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
 								<i class="fa fa-angle-right"></i>
 							</a>
+						}
 					</div>
 				</div><!--/recommended_items-->
 

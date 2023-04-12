@@ -13,6 +13,25 @@
 
 }
 <style>
+	.modal {
+		display: none;
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: rgba( 255, 255, 255, .8 ) url('https://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+	}
+
+	body.loading {
+		overflow: hidden;
+	}
+
+		body.loading .modal {
+			display: block;
+		}
+
 	.shortName {
 		text-align: left;
 		margin-right: 0.5em;
@@ -30,9 +49,10 @@
 	<div class="container">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
-				<li><a href="/Home">Trang chủ</a></li>
+				<li><a href="/trang-chu">Trang chủ</a></li>
 				<li class="active">Giỏ hàng</li>
 			</ol>
+			
 		</div>
 		<div class="row" style="margin-top: -70px;">
 			<div class="col-sm-8">
@@ -56,27 +76,45 @@
 
 			</div>
 			<div class="col-sm-4" style="margin-bottom: 20px;">
-				<h4 style="text-align: center; background: #D2D9D7; padding: 10px 0px; margin-top: 1px; font-weight: bold;">ĐƠN HÀNG</h4>
+				<h4 style="text-align: center; background: #D2D9D7; padding: 10px 0px; margin-top: 1px; font-weight: bold;">THÔNG TIN ĐƠN HÀNG</h4>
 				<div class="total_area">
 					<form asp-controller="Cart" asp-action="Index" method="post">
-						@Html.ValidationMessageFor(m => m.ShipName,"", new { @class = "text-danger" })
+						@*@Html.ValidationMessageFor(m => m.ShipName,"", new { @class = "text-danger" })*@
+						<span id="shipNameValid" asp-validation-for="ShipName" class="text-danger"></span>
 						<label>Khách hàng</label>
-						<input type="text" class="form-control" name="shipName" value="@if(ViewBag.ShipName != null){@ViewBag.ShipName}" />
-						@Html.ValidationMessageFor(m => m.ShipPhoneNumber,"", new { @class = "text-danger" })
+						<input type="text" id="shipName" class="form-control" name="shipName" value="@if(ViewBag.ShipName != null){@ViewBag.ShipName}" />
+						
+						@*@Html.ValidationMessageFor(m => m.ShipPhoneNumber,"", new { @class = "text-danger" })*@
+						<span id="shipPhoneNumberValid" asp-validation-for="ShipPhoneNumber" class="text-danger"></span>
 						<label>Số điện thoại</label>
-						<input type="text" class="form-control" name="shipPhoneNumber" value="@if(ViewBag.ShipPhoneNumber != null){@ViewBag.ShipPhoneNumber}" />
-						@Html.ValidationMessageFor(m => m.ShipEmail,"", new { @class = "text-danger" })
+						<input type="text" class="form-control" id="shipPhoneNumber" name="shipPhoneNumber" value="@if(ViewBag.ShipPhoneNumber != null){@ViewBag.ShipPhoneNumber}" />
+
+						@*@Html.ValidationMessageFor(m => m.ShipEmail,"", new { @class = "text-danger" })*@
+						<span id="shipEmailValid" asp-validation-for="ShipEmail" class="text-danger"></span>
 						<label>Email</label>
-						<input type="text" class="form-control" name="shipEmail" value="@if(ViewBag.ShipEmail != null){@ViewBag.ShipEmail}" />
-						@Html.ValidationMessageFor(m => m.ShipAddress,"", new { @class = "text-danger" })
+						<input type="text" class="form-control" id="shipEmail" name="shipEmail" value="@if(ViewBag.ShipEmail != null){@ViewBag.ShipEmail}" />
+
+						@*@Html.ValidationMessageFor(m => m.ShipAddress,"", new { @class = "text-danger" })*@
+						<span id="shipAddressValid" asp-validation-for="ShipAddress" class="text-danger"></span>
 						<label>Địa chỉ nhận hàng</label>
-						<input type="text" class="form-control" name="shipAddress" value="@if(ViewBag.ShipAddress != null){@ViewBag.ShipAddress}" />
-						<br />
-						<button type="submit" class="btn btn-success">ĐẶT HÀNG</button>
-						<a class="btn btn-default" href="">TIẾP TỤC MUA SẮM</a>
+						<input type="text" class="form-control" id="shipAddress" name="shipAddress" value="@if(ViewBag.ShipAddress != null){@ViewBag.ShipAddress}" />
+
+						<label>Ghi chú</label>
+						<textarea name="shipNote" rows="3" style="background: white; border: 1px solid silver; border-radius: 5px;"></textarea>
+						<br /> <br />
+						<button id="btnOrder" type="submit" class="btn btn-success" >ĐẶT HÀNG</button>
+						<a class="btn btn-default" href="/san-pham">TIẾP TỤC MUA SẮM</a>
+						<span id="messCart" style="float: left;" class="text-danger">
+							@if (ViewBag.OutStock != null)
+							{
+								@ViewBag.OutStock
+							}
+						</span>
 					</form>
+					
 				</div>
 			</div>
+			<div class="modal"><!-- Place at bottom of page --></div>
 		</div>
 	</div>
 </section> <!--/#cart_items-->

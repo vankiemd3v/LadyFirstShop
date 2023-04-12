@@ -1,13 +1,14 @@
 ﻿@{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	var lastestProduct = Model.Products;
+	var saleProducts = ViewBag.SaleProducts;
 	var bestSellerProducts = ViewBag.BestSellerProducts;
-	int count6 = 0;
-	int count12 = 0;
+	var lastesProducts = Model.Products;
+	var brands = Model.Brands;
+	int show4 = 0;
+	int show8 = 0;
 	int setColorId = 0;
 }
-
 <section id="slider">
 	<!--slider-->
 	<div class="container">
@@ -20,15 +21,15 @@
 						<li data-target="#slider-carousel" data-slide-to="2"></li>
 					</ol>
 
-					<div class="carousel-inner" style=" margin-left: auto; margin-right: auto;">
-						<div class="item active">
-							<img src="https://w.ladicdn.com/6381c31b28155d0012aa38a2/top-make-up-min-20230317025827-fktt5.jpg" class="girl img-responsive" alt="" />
+					<div class="carousel-inner" style=" margin-left: auto; margin-right: auto; margin-bottom: -20px;">
+						<div class="item active" style="padding: 0;">
+							<img style="    padding-top: 0;" src="/public/images/home/banner.png" class="girl img-responsive" alt="" />
 						</div>
-						<div class="item">
-							<img src="https://w.ladicdn.com/6381c31b28155d0012aa38a2/top-make-up-min-20230317025827-fktt5.jpg" class="girl img-responsive" alt="" />
+						<div class="item" style="padding: 0;">
+							<img style="    padding-top: 0;" src="/public/images/home/banner.png" class="girl img-responsive" alt="" />
 						</div>
-						<div class="item">
-							<img src="https://w.ladicdn.com/6381c31b28155d0012aa38a2/top-make-up-min-20230317025827-fktt5.jpg" class="girl img-responsive" alt="" />
+						<div class="item" style="padding: 0;">
+							<img style="    padding-top: 0;" src="/public/images/home/banner.png" class="girl img-responsive" alt="" />
 						</div>
 					</div>
 
@@ -48,99 +49,175 @@
 <section>
 	<div class="container">
 		<div class="row">
-			@*<div class="col-sm-3">
+			<div class="col-sm-3">
 				<div class="left-sidebar">
 					<div class="brands_products">
 						<!--brands_products-->
 						<h2>Thương hiệu</h2>
 						<div class="brands-name">
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#"> <span class="pull-right">(100)</span>Tất cả</a></li>
-								<li><a href="#"> <span class="pull-right">(56)</span>Chang Makeup</a></li>
-								<li><a href="#"> <span class="pull-right">(27)</span>Focallure</a></li>
-								<li><a href="#"> <span class="pull-right">(32)</span>Black Rouge</a></li>
+								<li><a href="/san-pham"> <b>Tất cả</b></a></li>
+								@foreach (var item in brands)
+								{
+									<li><a href="/san-pham?id=@item.Id"><b>@item.Name</b></a></li>
+								}
 							</ul>
 						</div>
 					</div><!--/brands_products-->
 
-					<div class="price-range">
+					@*<div class="price-range">
 						<!--price-range-->
 						<h2>Lọc theo giá</h2>
 						<div class="well text-center">
 							<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="2000000" data-slider-step="200000" data-slider-value="[0,2000000]" id="sl2"><br />
 							<b class="pull-left">0</b> <b class="pull-right">2.000.000</b>
 						</div>
-					</div><!--/price-range-->
+					</div><!--/price-range-->*@
 
 				</div>
-			</div>*@
+			</div>
 
-			<div class="col-sm-12">
+			<div class="col-sm-9">
 				<div class="category-tab">
 					<!--category-tab-->
-					<div class="col-sm-12">
+					@*<div class="col-sm-12">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tshirt" data-toggle="tab">THƯƠNG HIỆU</a></li>
-							@*<li><a href="#blazers" data-toggle="tab">Chang Makeup</a></li>
-							<li><a href="#sunglass" data-toggle="tab">Focallure</a></li>
-							<li><a href="#kids" data-toggle="tab">Black Rouge</a></li>*@
-							@foreach (var item in ViewBag.ListProductByBrand)
-							{
-								<li><a href="#@item.Id" data-toggle="tab">@item.Name</a></li>
-							}
+							<li class="active"><a href="#tshirt" data-toggle="tab">Sản phẩm Khuyến mãi</a></li>
+						</ul>
+					</div>*@
+					<div class="col-sm-12">
+						<ul class="nav nav-tabs" style="background: #009727; border-bottom: none; margin-bottom: 0px;">
+							<li class="active" style="margin-bottom: 1px;">
+								<a style="border-radius: 0px; background: #009727; margin-bottom: -1px;font-weight: bold;">SẢN PHẨM KHUYẾN MÃI</a>
+							</li>
 						</ul>
 					</div>
 					<div class="tab-content">
 						<div class="tab-pane fade active in" id="tshirt">
-							@foreach(var item in lastestProduct)
-							{
-								@foreach (var color in item.ProductColors)
-								{
-									if (color.Quantity > 0)
-									{
-										setColorId = color.Id;
-										break;
-									}
-								}
-								<a href="/Product/Detail?id=@item.Id&colorId=@setColorId">
-									<div class="col-sm-2">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/product-image/@item.Image" alt="" />
-													@if (item.SalePrice == 0)
-													{
-														<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
-													}
-													else
-													{
-														<div class="row">
-															<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
-															<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
-														</div>
-													}
-													<p class="dauBaCham">
-														@item.Name
-													</p>@*
-												<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
-													<div class="processBar">
-														<div class="comp"></div>
-														<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
-													</div>
-												</div>
-
-											</div>
-											@if (item.SalePrice > 0)
+							<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+								<div class="carousel-inner">
+									<div class="item active">
+										@foreach (var item in saleProducts)
+										{
+											show4++;
+											if (show4 <= 4)
 											{
-												<img style="margin-right: 15px;" src="/public/images/home/sale.png" class="new" alt="">
+												@foreach (var color in item.ProductColors)
+												{
+													if (color.Quantity > 0)
+													{
+														setColorId = color.Id;
+														break;
+													}
+												}
+												<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+													<div class="col-sm-3">
+														<div class="product-image-wrapper">
+															<div class="single-products">
+																<div class="productinfo text-center">
+																	<img src="/product-image/@item.Image" alt="" />
+																	@if (item.SalePrice == 0)
+																	{
+																		<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+																	}
+																	else
+																	{
+																		<div class="row">
+																			<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
+																			<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+																		</div>
+																	}
+																	<p class="dauBaCham">
+																		@item.Name
+																	</p>@*
+															<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
+																	<div class="processBar">
+																		<div class="comp"></div>
+																		<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																	</div>
+																</div>
+
+															</div>
+															@if (item.SalePrice > 0)
+															{
+																<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
+															}
+														</div>
+													</div>
+												</a>
+											}
+										}
+									</div>
+									@if(show4 > 4)
+									{
+										<div class="item">
+											@foreach (var item in saleProducts)
+											{
+												show8++;
+												if (show8 >= 5 && show8 <= 8)
+												{
+													@foreach (var color in item.ProductColors)
+													{
+														if (color.Quantity > 0)
+														{
+															setColorId = color.Id;
+															break;
+														}
+													}
+													<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+														<div class="col-sm-3">
+															<div class="product-image-wrapper">
+																<div class="single-products">
+																	<div class="productinfo text-center">
+																		<img src="/product-image/@item.Image" alt="" />
+																		@if (item.SalePrice == 0)
+																		{
+																			<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+																		}
+																		else
+																		{
+																			<div class="row">
+																				<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
+																				<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+																			</div>
+																		}
+																		<p class="dauBaCham">
+																			@item.Name
+																		</p>@*
+															<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
+																		<div class="processBar">
+																			<div class="comp"></div>
+																			<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																		</div>
+																	</div>
+
+																</div>
+																@if (item.SalePrice > 0)
+																{
+																	<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
+																}
+															</div>
+														</div>
+													</a>
+												}
 											}
 										</div>
-									</div>
-								</a>
-							}
+									}
+								</div>
+								@if(show4 > 4)
+								{
+									<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+										<i class="fa fa-angle-left"></i>
+									</a>
+									<a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+										<i class="fa fa-angle-right"></i>
+									</a>
+								}
+							</div>
+							
 						</div>
 
-						@foreach (var brand in ViewBag.ListProductByBrand)
+						@*@foreach (var brand in ViewBag.ListProductByBrand)
 						{
 							<div class="tab-pane fade" id="@brand.Id">
 								@foreach(var item in brand.Products)
@@ -153,7 +230,7 @@
 											break;
 										}
 									}
-									<a href="/Product/Detail?id=@item.Id&colorId=@setColorId">
+									<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
 										<div class="col-sm-2">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -173,7 +250,7 @@
 													<p class="dauBaCham">
 														@item.Name
 													</p>@*
-											<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
+											<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>
 													<div class="processBar">
 														<div class="comp"></div>
 														<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
@@ -183,129 +260,141 @@
 											</div>
 											@if (item.SalePrice > 0)
 											{
-													<img style="margin-right: 15px;" src="/public/images/home/sale.png" class="new" alt="">
+													<img   src="/public/images/home/sale.png" class="new" alt="">
 											}
 										</div>
 									</div>
 									</a>
 								}
 							</div>
-						}
+						}*@
 					</div>
 				</div><!--/category-tab-->
 
+				
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
 				<div class="recommended_items">
 					<!--recommended_items-->
-					<h2 class="title text-center">SẢN PHẨM BÁN CHẠY NHẤT</h2>
-
-					<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner">
-							<div class="item active">
-								@foreach (var item in bestSellerProducts)
-								{
-									count6++;
-									if (count6 <= 6)
-									{
-										@foreach (var color in item.ProductColors)
-										{
-											if (color.Quantity > 0)
-											{
-												setColorId = color.Id;
-												break;
-											}
-										}
-										<a href="/Product/Detail?id=@item.Id&colorId=@setColorId">
-											<div class="col-sm-2">
-											<div class="product-image-wrapper">
-												<div class="single-products">
-													<div class="productinfo text-center">
-														<img src="/product-image/@item.Image" alt="" />
-														@if (item.SalePrice == 0)
-														{
-															<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
-														}
-														else
-														{
-															<div class="row">
-																<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
-																<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
-															</div>
-														}
-														<p class="dauBaCham">
-															@item.Name
-														</p>@*
-												<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
-														<div class="processBar">
-															<div class="comp"></div>
-															<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
-														</div>
-													</div>
-
-												</div>
-												@if (item.SalePrice > 0)
-												{
-														<img style="margin-right: 15px;" src="/public/images/home/sale.png" class="new" alt="">
-												}
-											</div>
-										</div>
-										</a>
-									}
-								}
-							</div>
-							<div class="item">
-								@foreach (var item in bestSellerProducts)
-								{
-									count12++;
-									if (count12 >= 7 && count12 <= 12)
-									{
-										<a href="/Product/Detail?id=@item.Id">
-											<div class="col-sm-2">
-											<div class="product-image-wrapper">
-												<div class="single-products">
-													<div class="productinfo text-center">
-														<img src="/product-image/@item.Image" alt="" />
-														@if (item.SalePrice == 0)
-														{
-															<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
-														}
-														else
-														{
-															<div class="row">
-																<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
-																<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
-															</div>
-														}
-														<p class="dauBaCham">
-															@item.Name
-														</p>@*
-												<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
-														<div class="processBar">
-															<div class="comp"></div>
-															<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
-														</div>
-													</div>
-
-												</div>
-												@if (item.SalePrice > 0)
-												{
-														<img style="margin-right: 15px;" src="/public/images/home/sale.png" class="new" alt="">
-												}
-											</div>
-										</div>
-										</a>
-									}
-								}
-							</div>
-						</div>
-						<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
+					@*<h2 class="title text-center">SẢN PHẨM MỚI NHẤT</h2>*@
+					<div class="col-sm-12">
+						<ul class="nav nav-tabs" style="background: #009727;">
+							<li class="active" style="margin-bottom: 1px;">
+								<a style="border-radius: 0px; background: #009727; margin-bottom: -1px;font-weight: bold;">SẢN PHẨM MỚI</a>
+							</li>
+						</ul>
 					</div>
-				</div><!--/recommended_items-->
+					@foreach (var item in lastesProducts)
+					{
+						@foreach (var color in item.ProductColors)
+						{
+							if (color.Quantity > 0)
+							{
+								setColorId = color.Id;
+								break;
+							}
+						}
+						<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+							<div class="col-sm-2">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/product-image/@item.Image" alt="" />
+											@if (item.SalePrice == 0)
+											{
+												<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+											}
+											else
+											{
+												<div class="row">
+													<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
+													<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+												</div>
+											}
+											<p class="dauBaCham">
+												@item.Name
+											</p>@*
+										<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
+											<div class="processBar">
+												<div class="comp"></div>
+												<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+											</div>
+										</div>
 
+									</div>
+									@if (item.SalePrice > 0)
+									{
+										<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
+									}
+								</div>
+							</div>
+						</a>
+					}
+				</div><!--/recommended_items-->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="recommended_items">
+					<!--recommended_items-->
+					<div class="col-sm-12">
+						<ul class="nav nav-tabs" style="background: #009727;">
+							<li class="active" style="margin-bottom: 1px;">
+								<a style="border-radius: 0px; background: #009727; margin-bottom: -1px;font-weight: bold;">SẢN PHẨM BÁN CHẠY</a>
+							</li>
+						</ul>
+					</div>
+
+					@foreach (var item in bestSellerProducts)
+					{
+						@foreach (var color in item.ProductColors)
+						{
+							if (color.Quantity > 0)
+							{
+								setColorId = color.Id;
+								break;
+							}
+						}
+						<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+							<div class="col-sm-2">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="/product-image/@item.Image" alt="" />
+											@if (item.SalePrice == 0)
+											{
+												<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+											}
+											else
+											{
+												<div class="row">
+													<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
+													<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+												</div>
+											}
+											<p class="dauBaCham">
+												@item.Name
+											</p>@*
+										<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
+											<div class="processBar">
+												<div class="comp"></div>
+												<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+											</div>
+										</div>
+
+									</div>
+									@if (item.SalePrice > 0)
+									{
+										<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
+									}
+								</div>
+							</div>
+						</a>
+					}
+				</div><!--/recommended_items-->
 			</div>
 		</div>
 	</div>

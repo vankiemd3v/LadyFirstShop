@@ -57,11 +57,8 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Tên sản phẩm</label>
+                                        @Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger", @style="float: right;"})
                                         <input value="@Model.Name" asp-for="Name" id="cc-pament" name="name" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Name,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 @*<div class="row">
@@ -77,21 +74,15 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Giá nhập</label>
+                                        @Html.ValidationMessageFor(m => m.ImportPrice,"", new { @class = "text-danger", @style="float: right;"})
                                         <input value="@Model.ImportPrice" asp-for="ImportPrice" id="cc-pament" name="importPrice" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.ImportPrice,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Giá bán</label>
+                                        @Html.ValidationMessageFor(m => m.Price,"", new { @class = "text-danger", @style="float: right;"})
                                         <input value="@Model.Price" asp-for="Price" id="cc-pament" name="price" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Price,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="row">
@@ -103,11 +94,8 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="cc-payment" class="control-label mb-1">Mô tả</label>
+                                        @Html.ValidationMessageFor(m => m.Description,"", new { @class = "text-danger", @style="float: right;"})
                                         <textarea rows="20" id="txt_description" asp-for="Description" name="description" class="form-control">@Model.Description</textarea>
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <input typeof="hidden" style="margin-top:10px;" /><br />
-                                        @Html.ValidationMessageFor(m => m.Description,"", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="row">

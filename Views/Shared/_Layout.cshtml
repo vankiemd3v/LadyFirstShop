@@ -104,16 +104,20 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/Home"><img src="/public/images/home/logo.png" alt="" /></a>
+							<a href="/trang-chu"><img style="width: 65%;" src="/public/images/home/logo.png" alt="" /></a>
 						</div>
 
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="/Cart/CheckOrder"><i class="fa fa-crosshairs"></i> Kiểm tra đơn hàng</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng (<span id="numberCartItem"></span>)</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+								<li><a href="/don-hang"><i class="fa fa-crosshairs"></i> Kiểm tra đơn hàng</a></li>
+								<li><a href="/gio-hang"><i class="fa fa-shopping-cart"></i> Giỏ hàng (<span id="numberCartItem"></span>)</a></li>
+								@*<li><a href="/Login"><i class="fa fa-lock"></i> Đăng nhập</a></li>*@
+								@*@if (User.Identity.IsAuthenticated)
+								{
+									<li><a href="/Login"><i class="fa fa-lock"></i>Hello @User.Identity.Name</a></li>
+								}*@
 							</ul>
 						</div>
 					</div>
@@ -136,8 +140,8 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/Home" class="active">Trang chủ</a></li>
-								<li><a href="/Product">Shop</a></li>
+								<li><a href="/trang-chu" class="active">Trang chủ</a></li>
+								<li><a href="/san-pham">Shop</a></li>
 								@*<li class="dropdown">
 									<a href="#">Shop<i class="fa fa-angle-down"></i></a>
 									<ul role="menu" class="sub-menu">
@@ -148,13 +152,16 @@
 										<li><a href="login.html">Login</a></li>
 									</ul>
 								</li>*@
-								<li><a href="contact-us.html">Liên hệ</a></li>
+								<li><a href="/lien-he">Liên hệ</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Tìm kiếm..." />
+							<form asp-action="ProductByBrand" asp-controller="Product" method="get">
+								<input name="keyword" type="text" placeholder="Tìm kiếm..." value="@if(ViewBag.Keyword != null){@ViewBag.Keyword}" />
+								<button type="submit" hidden></button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -170,29 +177,29 @@
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<div class="companyinfo">
 							<h2><span>LadyF</span>-shop</h2>
-							<p>Shop bán son thui nha mọi người :v</p>
+							<p>Là con gái phải xinh!</p>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>Hotline</h2>
+							<h2>Chi nhánh</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a>Mua hàng: 0336.154.196</a></li>
-								<li><a>Hỗ trợ: 0336.154.196</a></li>
-								<li><a>Bảo hành: 0336.154.196</a></li>
+								<li><a>Vinh Hiền, Phú Lộc, Huế</a></li>
+								<li><a>81 Hoàng Diệu, ĐN</a></li>
+								<li><a>04 Ông Ích Khiêm, ĐN</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<div class="single-widget">
 							<h2>Hỗ trợ</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Mua hàng</a></li>
-								<li><a href="#">Đóng góp ý kiến</a></li>
-								<li><a href="#">Chế độ bảo hành</a></li>
+								<li><a href="/san-pham">Mua hàng</a></li>
+								<li><a href="/lien-he">Đóng góp ý kiến</a></li>
+								<li><a href="#">Hotline: 0336154196</a></li>
 							</ul>
 						</div>
 					</div>

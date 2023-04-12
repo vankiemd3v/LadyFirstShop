@@ -20,8 +20,13 @@ namespace LadyFirstShop.Areas.Admin.Controllers
             _productService = productService;
             _brandService = brandService;
         }
-        public async Task<IActionResult> Index(int brandId, string keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(int brandId, string keyword, int pageIndex, int pageSize = 10)
         {
+			ViewBag.FullName = HttpContext.Session.GetString("FullName");
+			if (pageIndex == 0)
+            {
+                pageIndex = 1;
+            }
             var request = new GetAdminProductRequest()
             {
                 BrandId = brandId,
@@ -41,14 +46,16 @@ namespace LadyFirstShop.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var brands = await _brandService.GetAll();
+			ViewBag.FullName = HttpContext.Session.GetString("FullName");
+			var brands = await _brandService.GetAll();
             ViewBag.Brands = brands;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductRequest request)
         {
-            if (!ModelState.IsValid)
+			ViewBag.FullName = HttpContext.Session.GetString("FullName");
+			if (!ModelState.IsValid)
             {
                 ViewBag.Brands = await _brandService.GetAll();
                 return View(request);
@@ -65,7 +72,8 @@ namespace LadyFirstShop.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var brands = await _brandService.GetAll();
+			ViewBag.FullName = HttpContext.Session.GetString("FullName");
+			var brands = await _brandService.GetAll();
             ViewBag.Brands = brands;
             var product = await _productService.GetById(id, 0);
             return View(product);
@@ -73,7 +81,8 @@ namespace LadyFirstShop.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateProductRequest request)
         {
-            if (!ModelState.IsValid)
+			ViewBag.FullName = HttpContext.Session.GetString("FullName");
+			if (!ModelState.IsValid)
             {
                 ViewBag.Brands = await _brandService.GetAll();
                 var productVm = new ProductViewModel();
@@ -82,7 +91,6 @@ namespace LadyFirstShop.Areas.Admin.Controllers
                 productVm.Description = request.Description;
                 productVm.ImportPrice = request.ImportPrice;
                 productVm.Price = request.Price;
-                productVm.Quantity = request.Quantity;
                 productVm.BrandId = request.BrandId;
                 return View(productVm);
             }
@@ -98,13 +106,15 @@ namespace LadyFirstShop.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateProductColor(int id)
         {
-            var product = await _productService.GetById(id, 0);
+			ViewBag.FullName = HttpContext.Session.GetString("FullName");
+			var product = await _productService.GetById(id, 0);
             return View(product);
         }
         [HttpPost]
         public async Task<IActionResult> CreateProductColor(CreateProductColorRequest request)
         {
-             if (!ModelState.IsValid)
+			ViewBag.FullName = HttpContext.Session.GetString("FullName");
+			if (!ModelState.IsValid)
             {
                 var getById = await _productService.GetById(request.Id, 0);
                 return View(getById);
@@ -127,6 +137,16 @@ namespace LadyFirstShop.Areas.Admin.Controllers
             var delete = await _productService.DeleteProduct(id);
             return RedirectToAction("Index", "Product");
             
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateProductColor(int id, int quantity)
+        {
+            var update = await _productService.UpdateProductColor(id, quantity);
+            if (update)
+            {
+                return Json(new { status = true });
+            }
+            return Json(new { status = false });
         }
         [HttpGet]
         public async Task<IActionResult> DeleteProductColor(int id)

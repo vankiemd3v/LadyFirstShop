@@ -1,0 +1,151 @@
+﻿@model LadyFirstShop.Data.ViewModel.OrderViewModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#messUpdate').fadeOut('slow');
+        }, 5000);
+    </script>
+    <script src="/js/admin.js"></script>
+}
+<style>
+    .baCham {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 700px;
+        display: block;
+    }
+</style>
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    @if(ViewBag.Result != null)
+                    {
+                        @if (ViewBag.Result)
+                        {
+                            <div id="messUpdate" class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+                                <span class="badge badge-pill badge-success">Thành công</span>
+                                Cập nhật trạng thái đơn hàng thành công.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        }
+                    }
+                    <div class="card">
+                        <div class="card-header">CHI TIẾT ĐƠN HÀNG</div>
+                        <div class="card-body">
+                            <input type="hidden" id="orderId" value="@Model.Id" />
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Mã đơn hàng: @Model.Id</label>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Khách hàng: @Model.ShipName</label>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Số điện thoại: @Model.ShipPhoneNumber</label>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Địa chỉ: @Model.ShipAddress</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Email: @Model.ShipEmail</label>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Tổng tiền: @Model.TotalPayment.ToString("N0")<sup>đ</sup></label>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Ngày đặt hàng: @Model.OrderDate</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label class="control-label mb-1">Ghi chú: @Model.ShipNote</label>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <label class="control-label mb-1">Tình trạng: </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <select name="selectSm" id="SelectLm" class="form-control-sm form-control">
+                                                @foreach (var item in ViewBag.ListStatus)
+                                                {
+                                                    if (item == Model.Status)
+                                                    {
+                                                        <option selected>@Model.Status</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option>@item</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive m-b-40">
+                                        <table class="table table-borderless table-data3">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Thành tiền</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.OrderDetailsViewModel)
+                                                {
+                                                    <tr>
+                                                        <td class="baCham">@item.ProductName</td>
+                                                        <td>@item.Price.ToString("N0")<sup>đ</sup></td>
+                                                        <td style="text-align: center;">@item.Quantity</td>
+                                                        <td>@((@item.Price * @item.Quantity).ToString("N0"))<sup>đ</sup></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-3">
+                                    <button id="updateStatus" class="btn btn-lg btn-success btn-block" style="margin-top:9px;">
+                                        <i class="fa fa-save"></i>
+                                        <span id="payment-button-amount">Cập nhật</span>
+                                    </button>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <a href="/Admin/Order" type="button" id="payment-button" class="btn btn-lg btn-secondary btn-block" style="margin-top:9px;">
+                                        <span id="payment-button-amount">Quay lại</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
