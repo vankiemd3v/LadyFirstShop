@@ -45,7 +45,7 @@ namespace LadyFirstShop.Controllers
 				Keyword = keyword,
 				BrandId = id,
 				PageIndex = pageIndex,
-				PageSize = 8,
+				PageSize = 16,
 				Min = min,
 				Max = max
 			};

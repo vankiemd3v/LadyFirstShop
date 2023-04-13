@@ -44,7 +44,7 @@
 					<h2>Lọc theo giá</h2>
 					<center>
 							<div class="well text-center">
-								<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="1000000" data-slider-step="10000" data-slider-value="[@min,@max]" id="sl2"><br />
+								<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="1000000" data-slider-step="250000" data-slider-value="[@min,@max]" id="sl2"><br />
 								<div>
 									<b class="pull-left">0</b>
 									<b class="pull-right">1.000.000<sup>đ</sup></b>
@@ -92,40 +92,74 @@
 									break;
 								}
 							}
-							<a href="/chi-tiet-san-pham?id=@product.Id&colorId=@setColorId">
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/product-image/@product.Image" alt="" />
-												@if (product.SalePrice == 0)
-												{
-													<h4 style="color: #a91313;">@product.Price.ToString("N0")<sup>đ</sup></h4>
-												}
-												else
-												{
-													<div class="row">
-														<h5 style="color: silver; float:left; margin-left: 30px;"><del>@product.Price.ToString("N0")<sup>đ</sup></del></h5>
-														<h4 style="color: #a91313; float: right; margin-right: 25px;">@product.SalePrice.ToString("N0")<sup>đ</sup></h4>
+							if(product.Id == Model.Items[0].Id)
+							{
+								<a href="/chi-tiet-san-pham?id=@product.Id&colorId=@setColorId">
+									<div class="col-sm-3">
+										<div class="product-image-wrapper" style="margin-top: 1px; margin-bottom: -1px;">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="/product-image/@product.Image" alt="" />
+													@if (product.SalePrice == 0)
+													{
+														<h4 style="color: #a91313;">@product.Price.ToString("N0")<sup>đ</sup></h4>
+													}
+													else
+													{
+														<div class="row">
+															<h6 style="color: silver; float:left; margin-left: 30px;"><del>@product.Price.ToString("N0")<sup>đ</sup></del></h6>
+															<h4 style="color: #a91313; float: right; margin-right: 25px;">@product.SalePrice.ToString("N0")<sup>đ</sup></h4>
+														</div>
+													}
+													<p class="dauBaCham">
+														@product.Name
+													</p>
+													<div class="processBar">
+														<div class="comp"></div>
+														<div class="count-number">ĐÃ BÁN <span>@product.Sold</span></div>
 													</div>
-												}
-												<p class="dauBaCham">
-													@product.Name
-												</p>
-												<div class="processBar">
-													<div class="comp"></div>
-													<div class="count-number">ĐÃ BÁN <span>@product.Sold</span></div>
 												</div>
+
 											</div>
 
 										</div>
-										@if (product.SalePrice > 0)
-										{
-											<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
-										}
 									</div>
-								</div>
-							</a>
+								</a>
+							}
+							else
+							{
+								<a href="/chi-tiet-san-pham?id=@product.Id&colorId=@setColorId">
+									<div class="col-sm-3">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="/product-image/@product.Image" alt="" />
+													@if (product.SalePrice == 0)
+													{
+														<h4 style="color: #a91313;">@product.Price.ToString("N0")<sup>đ</sup></h4>
+													}
+													else
+													{
+														<div class="row">
+															<h6 style="color: silver; float:left; margin-left: 30px;"><del>@product.Price.ToString("N0")<sup>đ</sup></del></h6>
+															<h4 style="color: #a91313; float: right; margin-right: 25px;">@product.SalePrice.ToString("N0")<sup>đ</sup></h4>
+														</div>
+													}
+													<p class="dauBaCham">
+														@product.Name
+													</p>
+													<div class="processBar">
+														<div class="comp"></div>
+														<div class="count-number">ĐÃ BÁN <span>@product.Sold</span></div>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+								</a>
+							}
 						}
 					</div><!--/recommended_items-->
 				</div><!--/category-tab-->

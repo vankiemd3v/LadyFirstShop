@@ -265,7 +265,7 @@
 							@*<li><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>*@
 							<li class="active"><a href="#reviews" data-toggle="tab">Mô tả sản phẩm</a></li>
 						</ul>
-						<div style="padding: 20px; background: #F0F0E9;height: 300px;overflow-x:hidden;overflow-y:auto; text-align: justify;">
+						<div style="padding: 20px; background: #F0F0E9;overflow-x:hidden;overflow-y:auto; text-align: justify;">
 							@Html.Raw(Model.Description)
 						</div>
 					</div>
@@ -294,41 +294,76 @@
 												break;
 											}
 										}
-										<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
-											<div class="col-sm-3">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="/product-image/@item.Image" alt="" />
-															@if (item.SalePrice == 0)
-															{
-																<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
-															}
-															else
-															{
-																<div class="row">
-																	<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
-																	<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
-																</div>
-															}
-															<p class="dauBaCham">
-																@item.Name
-															</p>@*
+										if(item.Id == relateProducts[0].Id)
+										{
+											<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+												<div class="col-sm-3">
+													<div class="product-image-wrapper" style="margin-top: 1px; margin-bottom: -1px;">
+														<div class="single-products">
+															<div class="productinfo text-center">
+																<img src="/product-image/@item.Image" alt="" />
+																@if (item.SalePrice == 0)
+																{
+																	<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+																}
+																else
+																{
+																	<div class="row">
+																		<h6 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h6>
+																		<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+																	</div>
+																}
+																<p class="dauBaCham">
+																	@item.Name
+																</p>@*
 													<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
-															<div class="processBar">
-																<div class="comp"></div>
-																<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																<div class="processBar">
+																	<div class="comp"></div>
+																	<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																</div>
 															</div>
+
 														</div>
 
 													</div>
-													@if (item.SalePrice > 0)
-													{
-														<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
-													}
 												</div>
-											</div>
-										</a>
+											</a>
+										}
+										else
+										{
+											<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+												<div class="col-sm-3">
+													<div class="product-image-wrapper">
+														<div class="single-products">
+															<div class="productinfo text-center">
+																<img src="/product-image/@item.Image" alt="" />
+																@if (item.SalePrice == 0)
+																{
+																	<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+																}
+																else
+																{
+																	<div class="row">
+																		<h6 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h6>
+																		<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+																	</div>
+																}
+																<p class="dauBaCham">
+																	@item.Name
+																</p>@*
+													<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
+																<div class="processBar">
+																	<div class="comp"></div>
+																	<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																</div>
+															</div>
+
+														</div>
+
+													</div>
+												</div>
+											</a>
+										}
 									}
 								}
 							</div>
@@ -348,41 +383,76 @@
 													break;
 												}
 											}
-											<a href="/Product/Detail?id=@item.Id&colorId=@setColorId">
-												<div class="col-sm-3">
-													<div class="product-image-wrapper">
-														<div class="single-products">
-															<div class="productinfo text-center">
-																<img src="/product-image/@item.Image" alt="" />
-																@if (item.SalePrice == 0)
-																{
-																	<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
-																}
-																else
-																{
-																	<div class="row">
-																		<h5 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h5>
-																		<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
-																	</div>
-																}
-																<p class="dauBaCham">
-																	@item.Name
-																</p>@*
+											if(item.Id == relateProducts[4].Id)
+											{
+												<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+													<div class="col-sm-3">
+														<div class="product-image-wrapper" style="margin-top: 1px; margin-bottom: -1px;">
+															<div class="single-products">
+																<div class="productinfo text-center">
+																	<img src="/product-image/@item.Image" alt="" />
+																	@if (item.SalePrice == 0)
+																	{
+																		<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+																	}
+																	else
+																	{
+																		<div class="row">
+																			<h6 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h6>
+																			<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+																		</div>
+																	}
+																	<p class="dauBaCham">
+																		@item.Name
+																	</p>@*
 													<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
-																<div class="processBar">
-																	<div class="comp"></div>
-																	<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																	<div class="processBar">
+																		<div class="comp"></div>
+																		<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																	</div>
 																</div>
+
 															</div>
 
 														</div>
-														@if (item.SalePrice > 0)
-														{
-															<img class="saleImg"   src="/public/images/home/sale.png" class="new" alt="">
-														}
 													</div>
-												</div>
-											</a>
+												</a>
+											}
+											else
+											{
+												<a href="/chi-tiet-san-pham?id=@item.Id&colorId=@setColorId">
+													<div class="col-sm-3">
+														<div class="product-image-wrapper">
+															<div class="single-products">
+																<div class="productinfo text-center">
+																	<img src="/product-image/@item.Image" alt="" />
+																	@if (item.SalePrice == 0)
+																	{
+																		<h4 style="color: #a91313;">@item.Price.ToString("N0")<sup>đ</sup></h4>
+																	}
+																	else
+																	{
+																		<div class="row">
+																			<h6 style="color: silver; float:left; margin-left: 30px;"><del>@item.Price.ToString("N0")<sup>đ</sup></del></h6>
+																			<h4 style="color: #a91313; float: right; margin-right: 25px;">@item.SalePrice.ToString("N0")<sup>đ</sup></h4>
+																		</div>
+																	}
+																	<p class="dauBaCham">
+																		@item.Name
+																	</p>@*
+													<a href="#" class="btn btn-default add-to-cart">Đã bán: @item.Sold</a>*@
+																	<div class="processBar">
+																		<div class="comp"></div>
+																		<div class="count-number">ĐÃ BÁN <span>@item.Sold</span></div>
+																	</div>
+																</div>
+
+															</div>
+
+														</div>
+													</div>
+												</a>
+											}
 										}
 									}
 								</div>
